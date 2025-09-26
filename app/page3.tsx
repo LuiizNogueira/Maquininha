@@ -7,7 +7,6 @@ import Toast from 'react-native-toast-message';
 import {useState} from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-
 const ShopImage = require("./shoplocal.jpg");
 
 const pagina2 = () => {
@@ -43,16 +42,20 @@ export default function App() {
 
   return(
     <View style={styles.container}>    
+
+      <SafeAreaView>
       <Image source={ShopImage} style={styles.image}/>
 
-      <Text style={{fontWeight: 'bold',fontSize:20, top:-83, left: 30,marginTop: 10, }}>
+      <Text style={{fontWeight: 'bold',fontSize:20, top:-8, left: 30,marginTop: 10, }}>
         Empresa Teste
       </Text>
       <Text style={{marginTop: 10, color: '#666', fontSize: 14, top:-93, left: 6,}}>
         Usuário: caixa
       </Text>
-      
-            
+      </SafeAreaView>
+
+
+      <SafeAreaView style={styles.pages}>
       <TouchableOpacity 
         style={styles.button}
         activeOpacity={0.8}
@@ -72,7 +75,6 @@ export default function App() {
         <AntDesign name="plus-circle" size={33} color='orange' style={styles.boxcontent}/>
       </TouchableOpacity>
 
-      
       <TouchableOpacity 
         style={styles.button}
         activeOpacity={0.8}
@@ -91,7 +93,7 @@ export default function App() {
         <Feather name="arrow-right" size={33}  style={styles.arrow}/>
         <Ionicons name="list-circle" size={33} color='orange' style={styles.boxcontent}/>
       </TouchableOpacity>
-      
+      </SafeAreaView>
 
       <View style={styles.navBar}>
         <SafeAreaView edges={['bottom']} style={styles.safeArea}>
@@ -150,16 +152,16 @@ const styles = StyleSheet.create({
     bottom: 0,
     height: 90,
   },
+  pages:{ 
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 15,
+    position: 'relative',
+  },
   navItem: {
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 15,
-  },
-  safeArea: {
-  position: 'absolute',
-  bottom: 0,
-  width: '100%',
-  backgroundColor: '#311de9ff',
   },
   image: {
     width: 100,
@@ -212,7 +214,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
   },
-  
+  safeArea: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    backgroundColor: '#311de9ff',
+  },
   arrow: {
     position: 'absolute',
     top: 22, 
