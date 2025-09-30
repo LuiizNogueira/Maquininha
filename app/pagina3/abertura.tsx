@@ -7,10 +7,10 @@ import Toast from 'react-native-toast-message';
 import {useState} from "react";
 
 
-const Gato = require("./MILK KITTY!!.jpg");
+const Gato = require("../imgs/MILK KITTY!!.jpg");
 
 const pagina3 = () => {
-  router.replace('./page3')
+  router.replace('../page3')
 }
 
 export default function App() {
@@ -18,11 +18,9 @@ export default function App() {
     <View style={styles.container}>
       <Image source={Gato} style={styles.image} />
 
-      <Text style={styles.text}> SANGRIA </Text>
+      <Text style={styles.text}> ABERTURA DE CAIXA </Text>
 
-      {/* Container azul */}
       <View style={styles.header}>
-        {/* Apenas o botão fica clicável */}
         <TouchableOpacity style={styles.voltar} onPress={pagina3}>
           <Feather name="arrow-left" size={40} color="white" />
         </TouchableOpacity>

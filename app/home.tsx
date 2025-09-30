@@ -6,8 +6,10 @@ import {AntDesign, Ionicons, MaterialIcons, Entypo, FontAwesome} from "@expo/vec
 import Toast from 'react-native-toast-message';
 import {useState} from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import NavBar from "./components/navbar";
 
-const ShopImage = require("./shoplocal.jpg");
+
+const ShopImage = require("./imgs/shoplocal.jpg");
 
 const toastConfig = {
   error: (props: any) => (
@@ -25,6 +27,7 @@ const pagina3 = () => {
 }
 
 export default function App() {
+
   const [barras, setBarras] = useState(''); 
   const router = useRouter();
 
@@ -38,105 +41,73 @@ export default function App() {
   };
 
   return(
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <View style={styles.inputContainer}>
-            <TextInput 
-              style={styles.input} 
-              placeholder="Codigo De Barras" 
-              value={barras} 
-              onChangeText={setBarras}
-              keyboardType="numeric"
-            />
-            <Ionicons name="barcode" size={33} color="gray" style={styles.barcodeIcon} />
-            <Ionicons name="trash" size={33} color="blue" style={styles.trashIcon}/>
-          </View>
-        </View>
-
-        <View style={styles.content}>
-          <Image source={ShopImage} style={styles.image}/>
-          
-          <TouchableOpacity 
-            style={styles.button}
-            activeOpacity={0.8}
-            onPress={showErrorToast}>
-            <Text style={styles.buttonText}>Enviar Comanda</Text>
-          </TouchableOpacity>
-        </View>
-
+    <View style={styles.container}>
+      <TextInput 
+        style={styles.input} 
+        placeholder="Codigo De Barras" 
+        value={barras} 
+        onChangeText={setBarras}
+        keyboardType="numeric"
+      />
+      
+      <Ionicons name="trash" size={33} color="blue" style={styles.trash}/>
+      <Ionicons name="barcode" size={33} color="gray" style={styles.barcode} />
+      
+      <Image source={ShopImage} style={styles.image}/>
+      
+      <TouchableOpacity 
+        style={styles.button}
+        activeOpacity={0.8}
+        onPress={showErrorToast}>
+        <Text style={styles.buttonText}>Enviar Comanda</Text>
+      </TouchableOpacity>
+      
         <View style={styles.navBar}>
           <TouchableOpacity 
             style={styles.navItem}
             onPress={() => router.push('./home')}>
             <MaterialIcons name="shopping-basket" size={40} color="white" />
           </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={styles.navItem}
-            onPress={(pagina2)}>
-            <FontAwesome name="file-text" size={32} color="white" />
-          </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={styles.navItem}
-            onPress={pagina3}>
-            <Entypo name="menu" size={40} color="white" />
-          </TouchableOpacity>
+          <NavBar />
         </View>
-        
-        <Toast config={toastConfig} />
-      </View>
-    </SafeAreaView>
+      
+      <Toast config={toastConfig} />
+    </View>  
   );
 }
+
 
 const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
   container: {
-    flex: 1,
-    justifyContent: 'space-between',
-  },
-  header: {
-    paddingTop: 20,
-    paddingHorizontal: 20,
-    width: '100%',
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    position: 'relative',
-  },
-  input: {
-    height: 55,
-    borderColor: 'gray',
-    borderWidth: 1,
-    paddingHorizontal: 50,
-    borderRadius: 30,
-    width: '100%',
-    fontSize: 16,
-  },
-  barcodeIcon: {
-    position: 'absolute',
-    left: 10,
-    zIndex: 1,
-  },
-  trashIcon: {
-    position: 'absolute',
-    right: 10,
-    zIndex: 1,
-  },
-  content: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    backgroundColor: '#f5f5f5',
+    paddingBottom: 70,
+
   },
+ 
+   navBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    width: '100%',
+    backgroundColor: '#311de9ff',
+    paddingVertical: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#ddd',
+    position: 'absolute',
+    bottom: 0,
+    height: 90,
+  },
+  navItem: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 15,
+  },
+
   image: {
     width: 210,
     height: 210,
@@ -163,6 +134,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 8,
     opacity: 0.3,
+    marginBottom: -20, 
   },
   buttonText: {
     color: 'white',
@@ -170,39 +142,52 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 1,
   },
-  navBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    width: '100%',
-    backgroundColor: '#311de9ff',
-    paddingVertical: 12,
-    paddingBottom: 20,
-    borderTopWidth: 1,
-    borderTopColor: '#ddd',
-  },
-  navItem: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 15,
-  },
   customToast: {
     backgroundColor: '#666',
-    padding: 15,
+    padding: 5,
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 20,
     position: 'absolute',
-    top: '50%',
+    top: 615, 
     left: 20,
     right: 20,
-    transform: [{ translateY: 550 }],
-    zIndex: 1000,
+    transform: [{ translateY: -50 }], 
   },
   toastText: {
     color: 'white',
     fontSize: 16,
     textAlign: 'center',
   },
+  toastSubText: {
+    color: 'white',
+    fontSize: 14,
+    marginTop: 5,
+    textAlign: 'center',
+  },
+  
+  trash: {
+    position: 'absolute',
+    top: 56, 
+    right: 28,
+  },
+  barcode: {
+    position: 'absolute',
+    top: 56, 
+    left: 300, 
+    
+  },
+  input: {
+    flex:1,
+    height: 55,
+    borderColor: 'gray',
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    borderRadius: 30,
+    width: '90%',
+    position: 'absolute',
+    top: 47,
+  },
+
 });

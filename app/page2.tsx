@@ -1,56 +1,19 @@
-import { Background, Button } from "@react-navigation/elements";
-import { ImageComponent, StyleSheet, Text, View, TouchableOpacity, Dimensions, TextInput} from "react-native";
-import { Link, router, Tabs, useRouter } from "expo-router";
-import { Image }  from "expo-image";
-import {AntDesign, MaterialIcons, Entypo, FontAwesome, Feather, Ionicons} from "@expo/vector-icons"
-import Toast from 'react-native-toast-message';
-import {useState} from "react";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { router } from "expo-router";
+import { Image } from "expo-image";
+import NavBar from "./components/navbar";
 
-
-const Gato = require("./MILK KITTY!!.jpg");
-
-const pagina2 = () => {
-  router.replace('./page2')
-}
-const pagina3 = () => {
-  router.replace('./page3')
-}
+const Gato = require("./imgs/MILK KITTY!!.jpg");
 
 export default function App() {
-
-
-  return(
+  return (
     <View style={styles.container}>    
-      
       <Image source={Gato} style={styles.image}/>
-
-      <Text style={styles.text}> AINDA NAO ESTA PRONTO </Text>
-
-
-      <View style={styles.navBar}>
-        <TouchableOpacity 
-          style={styles.navItem}
-          onPress={() => router.push('./home')}>
-          <MaterialIcons name="shopping-basket" size={40} color="white" />
-        </TouchableOpacity>
-        
-        <TouchableOpacity 
-          style={styles.navItem}
-          onPress={pagina2}>
-          <FontAwesome name="file-text" size={32} color="white" />
-        </TouchableOpacity>
-        
-        <TouchableOpacity 
-          style={styles.navItem}
-          onPress={pagina3}>
-          <Entypo name="menu" size={40} color="white" />
-        </TouchableOpacity>
-      </View>
-      
+      <Text style={styles.text}>AINDA NAO ESTA PRONTO</Text>
+      <NavBar />
     </View>  
   );
 }
-
 
 const { width, height } = Dimensions.get('window');
 
@@ -61,33 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#f5f5f5',
     paddingBottom: 70,
-
   },
-  safeArea: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    backgroundColor: '#311de9ff',
-  },
-  navBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    width: '100%',
-    backgroundColor: '#311de9ff',
-    paddingVertical: 12,
-    borderTopWidth: 1,
-    borderTopColor: '#ddd',
-    position: 'absolute',
-    bottom: 0,
-    height: 90,
-  },
-  navItem: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 15,
-  },
-
   image: {
     width: 380,
     height: 450,
@@ -98,16 +35,13 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 1,
     position: 'absolute',
-   
   },
-
-  text:{
+  text: {
     textAlign: 'center',
     marginTop: 10,
     color: 'red', 
     fontSize: 40,
-    top:160,
-    fontWeight:'bold',
-},
-  
+    top: 160,
+    fontWeight: 'bold',
+  },
 });
