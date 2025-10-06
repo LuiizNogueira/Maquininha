@@ -1,23 +1,17 @@
-import { Button } from "@react-navigation/elements";
-import { ImageComponent, StyleSheet, Text, View, TouchableOpacity, Dimensions, TextInput} from "react-native";
-import { Link, router, Tabs, useRouter } from "expo-router";
-import { Image }  from "expo-image";
-import {AntDesign, Ionicons, MaterialIcons, Entypo, FontAwesome} from "@expo/vector-icons"
+import { Ionicons } from "@expo/vector-icons";
+import { Image } from "expo-image";
+import { router, useRouter } from "expo-router";
+import { useState } from "react";
+import { Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import Toast from 'react-native-toast-message';
-import {useState} from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import NavBar from "./components/navbar";
 
 
 const ShopImage = require("./imgs/shoplocal.jpg");
 
-const toastConfig = {
-  error: (props: any) => (
-    <View style={styles.customToast}>
-      <Text style={styles.toastText}>{props.text1}</Text>
-    </View>
-  )
-};
+const add = () => {
+  router.replace('./grid/add')
+}
 
 const pagina2 = () => {
   router.replace('./page2')
@@ -31,47 +25,45 @@ export default function App() {
   const [barras, setBarras] = useState(''); 
   const router = useRouter();
 
-  const showErrorToast = () => {
-    Toast.show({
-      type: 'error',
-      text1: 'Erro ao listar comandas, Teste a Conexão na tela de Menu!',
-      visibilityTime: 3000,
-      autoHide: true,
-    });
-  };
+  const [buttonY, setButtonY] = useState(0);
+
 
   return(
     <View style={styles.container}>
-      <TextInput 
-        style={styles.input} 
-        placeholder="Codigo De Barras" 
-        value={barras} 
-        onChangeText={setBarras}
-        keyboardType="numeric"
-      />
-      
-      <Ionicons name="trash" size={33} color="blue" style={styles.trash}/>
-      <Ionicons name="barcode" size={33} color="gray" style={styles.barcode} />
-      
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Código De Barras"
+          value={barras}
+          onChangeText={setBarras}
+          keyboardType="numeric"
+        />
+        <TouchableOpacity style={styles.iconWrapper}>
+          <Ionicons name="barcode" size={33} color="gray" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconWrapper}>
+          <Ionicons name="trash" size={33} color="blue" />
+        </TouchableOpacity>
+      </View>
+
       <Image source={ShopImage} style={styles.image}/>
       
       <TouchableOpacity 
         style={styles.button}
         activeOpacity={0.8}
-        onPress={showErrorToast}>
+        onPress={add}
+        onLayout={(event) => {
+          const { y } = event.nativeEvent.layout;
+          setButtonY(y);
+        }}
+      >
         <Text style={styles.buttonText}>Enviar Comanda</Text>
       </TouchableOpacity>
       
         <View style={styles.navBar}>
-          <TouchableOpacity 
-            style={styles.navItem}
-            onPress={() => router.push('./home')}>
-            <MaterialIcons name="shopping-basket" size={40} color="white" />
-          </TouchableOpacity>
           <NavBar />
         </View>
       
-      <Toast config={toastConfig} />
     </View>  
   );
 }
@@ -88,7 +80,7 @@ const styles = StyleSheet.create({
     paddingBottom: 70,
 
   },
- 
+
    navBar: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -142,31 +134,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 1,
   },
-  customToast: {
-    backgroundColor: '#666',
-    padding: 5,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 20,
-    position: 'absolute',
-    top: 615, 
-    left: 20,
-    right: 20,
-    transform: [{ translateY: -50 }], 
-  },
-  toastText: {
-    color: 'white',
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  toastSubText: {
-    color: 'white',
-    fontSize: 14,
-    marginTop: 5,
-    textAlign: 'center',
-  },
-  
   trash: {
     position: 'absolute',
     top: 56, 
@@ -178,16 +145,24 @@ const styles = StyleSheet.create({
     left: 300, 
     
   },
+    inputContainer: {
+    flexDirection: 'row', 
+    alignItems: 'center',  
+    width: '90%',        
+    position: 'absolute',
+    top: 47,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 30,
+    paddingHorizontal: 10, 
+    backgroundColor: 'white', 
+  },
   input: {
     flex:1,
     height: 55,
-    borderColor: 'gray',
-    borderWidth: 1,
-    paddingHorizontal: 10,
-    borderRadius: 30,
-    width: '90%',
-    position: 'absolute',
-    top: 47,
+  },
+  iconWrapper: {
+    paddingHorizontal: 5, 
   },
 
 });

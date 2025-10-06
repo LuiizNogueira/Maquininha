@@ -1,5 +1,5 @@
 import { Background, Button } from "@react-navigation/elements";
-import { ImageComponent, StyleSheet, Text, View, TouchableOpacity, Dimensions, TextInput} from "react-native";
+import { ImageComponent, StyleSheet, Text, View, TouchableOpacity, Dimensions, TextInput, SafeAreaView} from "react-native";
 import { Link, router, Tabs, useRouter } from "expo-router";
 import { Image }  from "expo-image";
 import {AntDesign, MaterialIcons, Entypo, FontAwesome, Feather, Ionicons} from "@expo/vector-icons"
@@ -31,27 +31,16 @@ const gest = () => {
 
 export default function App() {
 
-  const showErrorToast = () => {
-    Toast.show({
-      type: 'error',
-      text1: 'Essa parte do código não está pronto, tente novamente mais tarde',
-      visibilityTime: 3000,
-      autoHide: true,
-    });
-  };
-
   return(
-    <View style={styles.container}>    
-      <Image source={ShopImage} style={styles.image}/>
-
-      <Text style={{fontWeight: 'bold',fontSize:20, top:-83, left: 30,marginTop: 10, }}>
-        Empresa Teste
-      </Text>
-      <Text style={{marginTop: 10, color: '#666', fontSize: 14, top:-93, left: 6,}}>
-        Usuário: caixa
-      </Text>
-      
-            
+   <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Image source={ShopImage} style={styles.image} />
+          <View style={styles.userInfo}>
+            <Text style={styles.companyText}>Empresa Teste</Text>
+            <Text style={styles.userText}>Usuário: caixa</Text>
+          </View>
+        </View>    
       <TouchableOpacity 
         style={styles.button}
         activeOpacity={0.8}
@@ -94,14 +83,14 @@ export default function App() {
 
     <View style={styles.navBar}>
               <NavBar />
-        
-  </View>
+    </View>
       
       <Text style={{ marginTop: 10, color: '#666', fontSize: 14, textAlign: 'center', left:90 , top:-13}}>
         IP: 192.168.0.l02
       </Text>
 
     </View>  
+  </SafeAreaView>
   );
 }
 
@@ -117,6 +106,13 @@ const styles = StyleSheet.create({
     paddingBottom: 70,
 
   },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center', 
+    width: '80%', 
+    marginBottom: 30, 
+  },
+
   navBar: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -135,27 +131,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 15,
   },
-  safeArea: {
-  position: 'absolute',
-  bottom: 0,
-  width: '100%',
-  backgroundColor: '#311de9ff',
+ image: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
   },
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 100,
-    marginBottom: 40,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 1,
-    position: 'absolute',
-    top: 105,
-    left: 50,
+ userInfo: {
+    marginLeft: 15, 
+    justifyContent: 'center',
   },
-
+    companyText: {
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  userText: {
+    color: '#666',
+    fontSize: 14,
+    marginTop: 4,
+  },
+    safeArea: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
   button: {
     backgroundColor: 'white',
     paddingVertical: 16,
